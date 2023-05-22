@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User Details</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>User Details</h1>
+    <div id="userInfo"></div>
+
+    <script>
+        $(document).ready(function () {
+            // Get the user ID from the URL query parameter
+            var urlParams = new URLSearchParams(window.location.search);
+            var userId = urlParams.get('id');
+
+            // Fetch user details from the API
+            $.get('http://localhost:8081/demo/getuser?id=' + userId, function (data) {
+                // Process the received JSON data
+                var user = data;
+                // Generate HTML for the user details
+                var userInfoHTML = '';
+                userInfoHTML += '<p>ID: ' + user.id + '</p>';
+                userInfoHTML += '<p>Username: ' + user.username + '</p>';
+                userInfoHTML += '<p>Email: ' + user.email + '</p>';
+
+                // Display the generated HTML
+                $('#userInfo').html(userInfoHTML);
+            });
+        });
+    </script>
+</body>
+
+</html>

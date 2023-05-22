@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User List</title>
+    <link rel="stylesheet" href="styling.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <script src="navbar.js"></script>
+
+    <h1>User List</h1>
+    <div id="userList"></div>
+
+    <script>
+        $(document).ready(function () {
+            // Fetch user data from the API
+            $.get('http://localhost:8081/demo/allusers', function (data) {
+                // Process the received JSON data
+                var users = data;
+
+                // Generate HTML for each user
+                var userListHTML = '';
+                users.forEach(function (user) {
+                    userListHTML += '<p>ID: ' + user.id + '</p>';
+                    userListHTML += '<p>Username: <a href="user.html?id=' + user.id + '">' + user.username + '</a></p>';
+                    userListHTML += '<p>Email: ' + user.email + '</p>';
+                    userListHTML += '<hr>'; // Add a horizontal line between users
+                });
+
+                // Display the generated HTML
+                $('#userList').html(userListHTML);
+            });
+        });
+    </script>
+</body>
+
+</html>
